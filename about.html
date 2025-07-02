@@ -6,11 +6,15 @@
   <title>About Us — Glitch Bros</title>
   <link rel="icon" href="/favicon.ico" />
 
-  <!-- Google AdSense -->
+  <!-- Google AdSense Auto Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6519051238927335"
        crossorigin="anonymous"></script>
-  <!-- If you need to verify via meta tag, uncomment and paste below -->
-  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-6519051238927335",
+      enable_page_level_ads: true
+    });
+  </script>
 
   <style>
     /* ----------------------------
@@ -70,21 +74,14 @@
     .site-nav a::after {
       content: '';
       position: absolute;
-      width: 0; height: 2px;
+      width: 0;
+      height: 2px;
       background: var(--accent);
-      bottom: -4px; left: 0;
+      bottom: -4px;
+      left: 0;
       transition: width var(--transition);
     }
     .site-nav a:hover::after { width: 100%; }
-
-    /* ----------------------------
-       Ad Banner
-    ---------------------------- */
-    .ad-banner {
-      display: flex;
-      justify-content: center;
-      margin: 1rem 0;
-    }
 
     /* ----------------------------
        Main Content
@@ -181,27 +178,16 @@
 </head>
 <body>
   <header class="site-header">
-    <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
+    <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
     <nav class="site-nav">
-      <a href="about.html">About Us</a>
-      <a href="index.html">Main Menu</a>
+      <a href="about.html">About Us</a>
+      <a href="index.html">Main Menu</a>
     </nav>
   </header>
 
-  <!-- AdSense Banner (728×90) -->
-  <div class="ad-banner">
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:728px;height:90px"
-         data-ad-client="ca-pub-6519051238927335"
-         data-ad-slot="YOUR_AD_SLOT_ID"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
-
   <main class="container">
-    <h1>About Us</h1>
-    <p>Glitch Bros is more than just a game studio—it’s a passion project. We craft thrilling fan-made experiences that entertain and inspire.</p>
+    <h1>About Us</h1>
+    <p>Glitch Bros is more than just a game studio—it’s a passion project. We craft thrilling fan‑made experiences that entertain and inspire.</p>
     <p>Reach out via:</p>
     <ul class="contact-list">
       <li>WhatsApp: <a href="https://wa.me/201028725687" target="_blank">+20 102 872 5687</a> / <a href="https://wa.me/01028992800" target="_blank">+20 102 899 2800</a></li>
@@ -213,14 +199,14 @@
 
     <div class="team">
       <div class="member">
-        <img src="assets/team/abdalla_t.jpg" alt="Abdalla T." />
-        <h4>Abdalla T.</h4>
+        <img src="assets/team/abdalla_t.jpg" alt="Abdalla T." />
+        <h4>Abdalla T.</h4>
         <span>Unity Developer</span><br>
         <span>Video Editor</span>
       </div>
       <div class="member">
-        <img src="assets/team/abdalla_e.jpg" alt="Abdalla E." />
-        <h4>Abdalla E.</h4>
+        <img src="assets/team/abdalla_e.jpg" alt="Abdalla E." />
+        <h4>Abdalla E.</h4>
         <span>Unity Developer</span><br>
         <span>Video Editor</span>
       </div>

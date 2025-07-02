@@ -7,11 +7,15 @@
   <title>Play FkIt BB — Glitch Bros</title>
   <link rel="icon" href="../favicon.ico" />
 
-  <!-- Google AdSense -->
+  <!-- Google AdSense Auto Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6519051238927335"
        crossorigin="anonymous"></script>
-  <!-- Optional: Meta verification for Search Console -->
-  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+  <script>
+    (adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: "ca-pub-6519051238927335",
+      enable_page_level_ads: true
+    });
+  </script>
 
   <!-- 1) Night‑mode Main Menu styles with sticky footer support -->
   <style>
@@ -51,10 +55,12 @@
     .site-nav a:hover { color: #f05454; }
 
     /* Main Title */
-    .main-title { text-align: center; margin: 2rem 0; font-size: 2rem; color: #f05454; }
-
-    /* Ad Banner */
-    .ad-banner { display: flex; justify-content: center; margin-bottom: 1rem; }
+    .main-title {
+      text-align: center;
+      margin: 2rem 0;
+      font-size: 2rem;
+      color: #f05454;
+    }
 
     /* Unity/Game Section container */
     .games-container {
@@ -110,17 +116,6 @@
   <!-- Page Title -->
   <h1 class="main-title">Play FkIt BB</h1>
 
-  <!-- AdSense Banner (728×90) -->
-  <div class="ad-banner">
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:728px;height:90px"
-         data-ad-client="ca-pub-6519051238927335"
-         data-ad-slot="YOUR_AD_SLOT_ID"></ins>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
-
   <!-- Unity Game Container -->
   <main class="games-container">
     <div id="unity-container" class="unity-desktop">
@@ -155,7 +150,8 @@
       div.innerHTML = msg;
       warningBanner.appendChild(div);
       if (type === 'error') div.style = 'background: red; padding: 10px;';
-      else { if (type === 'warning') div.style = 'background: yellow; padding: 10px;';
+      else {
+        if (type === 'warning') div.style = 'background: yellow; padding: 10px;';
         setTimeout(() => { warningBanner.removeChild(div); update(); }, 5000);
       }
       update();
