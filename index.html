@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Optional AdSense account meta -->
+  <meta name="google-adsense-account" content="ca-pub-6519051238927335" />
   <title>Main Menu — Glitch Bros</title>
   <link rel="icon" href="/favicon.ico" />
 
@@ -129,41 +131,79 @@
       box-shadow: 0 8px 18px var(--shadow);
     }
     .game-thumb {
-      width: 100%; height: 340px;
+      width: 100%;
+      height: 340px;
       object-fit: cover;
       filter: brightness(0.8);
       transition: transform var(--transition), filter var(--transition);
     }
     .game-card:hover .game-thumb {
-      transform: scale(1.05); filter: brightness(1);
+      transform: scale(1.05);
+      filter: brightness(1);
     }
-    .game-info { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
-    .game-info h3 { margin-bottom: .5rem; color: var(--primary); font-size:1.4rem; }
-    .game-info p { font-size:.95rem; color:var(--text-light); line-height:1.4; flex-grow:1; }
+    .game-info {
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .game-info h3 {
+      margin-bottom: .5rem;
+      color: var(--primary);
+      font-size:1.4rem;
+    }
+    .game-info p {
+      font-size:.95rem;
+      color:var(--text-light);
+      line-height:1.4;
+      flex-grow:1;
+    }
     .game-info .play-btn {
-      margin-top:1rem; align-self:flex-start; padding:.5rem 1rem;
-      background:var(--primary); color:#fff; border-radius:6px;
-      font-weight:600; transition:background var(--transition);
+      margin-top:1rem;
+      align-self:flex-start;
+      padding:.5rem 1rem;
+      background:var(--primary);
+      color:#fff;
+      border-radius:6px;
+      font-weight:600;
+      transition:background var(--transition);
     }
-    .game-info .play-btn:hover { background:#d94343; }
+    .game-info .play-btn:hover {
+      background:#d94343;
+    }
 
     /* ----------------------------
        Footer
     ---------------------------- */
     .site-footer {
-      text-align:center; padding:1.5rem;
+      text-align:center;
+      padding:1.5rem;
       background:var(--header-bg);
       color:var(--text);
-      flex-shrink:0; font-size:.9rem; border-top:1px solid #444;
+      flex-shrink:0;
+      font-size:.9rem;
+      border-top:1px solid #444;
     }
-    .site-footer a { color:var(--primary); font-weight:500; transition:color var(--transition);}    
-    .site-footer a:hover { color:#fff; }
+    .site-footer a {
+      color:var(--primary);
+      font-weight:500;
+      transition:color var(--transition);
+    }    
+    .site-footer a:hover {
+      color:#fff;
+    }
 
     /* ----------------------------
        Responsive
     ---------------------------- */
-    @media (max-width:800px) { .main-title{font-size:2rem;} .game-thumb{height:260px;} }
-    @media (max-width:600px) { .game-thumb{height:220px;} .site-nav a{margin-left:1rem;font-size:.95rem;} }
+    @media (max-width:800px) {
+      .main-title { font-size:2rem; }
+      .game-thumb { height:260px; }
+    }
+    @media (max-width:600px) {
+      .game-thumb { height:220px; }
+      .site-nav a { margin-left:1rem; font-size:.95rem; }
+    }
   </style>
 </head>
 <body>
