@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Main Menu — Glitch Bros</title>
+  <title>Main Menu — Glitch Bros</title>
   <link rel="icon" href="/favicon.ico" />
+
+  <!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6519051238927335"
+     crossorigin="anonymous"></script>
+
   <style>
     /* ----------------------------
        Variables & Reset
@@ -99,6 +104,15 @@
     }
     @keyframes fadeInTitle {
       to { opacity: 1; }
+    }
+
+    /* ----------------------------
+       Ad Banner
+    ---------------------------- */
+    .ad-banner {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
     }
 
     /* ----------------------------
@@ -217,7 +231,20 @@
 
   <h1 class="main-title">Main Menu</h1>
 
+  <!-- AdSense Banner -->
+  <div class="ad-banner">
+    <ins class="adsbygoogle"
+         style="display:block; width:728px; height:90px"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="1234567890"
+         data-ad-format="horizontal"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
   <main class="games-container">
+    <!-- game cards -->
     <a href="dodge-master/index.html" class="game-card">
       <img src="assets/dodge-master-thumb.jpg" alt="Dodge Master Thumbnail" class="game-thumb" />
       <div class="game-info">

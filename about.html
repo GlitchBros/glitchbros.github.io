@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us — Glitch Bros</title>
   <link rel="icon" href="/favicon.ico" />
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6519051238927335"
+       crossorigin="anonymous"></script>
+  <!-- If you need to verify via meta tag, uncomment and paste below -->
+  <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+
   <style>
     /* ----------------------------
        Variables & Reset
@@ -21,11 +28,7 @@
       --transition: 0.3s ease;
       --radius: 8px;
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', sans-serif;
       line-height: 1.6;
@@ -35,15 +38,8 @@
       flex-direction: column;
       min-height: 100vh;
     }
-    a {
-      color: var(--link);
-      text-decoration: none;
-      transition: color var(--transition);
-    }
-    a:hover {
-      color: var(--accent);
-      text-decoration: underline;
-    }
+    a { color: var(--link); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--accent); text-decoration: underline; }
 
     /* ----------------------------
        Header
@@ -74,15 +70,20 @@
     .site-nav a::after {
       content: '';
       position: absolute;
-      width: 0;
-      height: 2px;
+      width: 0; height: 2px;
       background: var(--accent);
-      bottom: -4px;
-      left: 0;
+      bottom: -4px; left: 0;
       transition: width var(--transition);
     }
-    .site-nav a:hover::after {
-      width: 100%;
+    .site-nav a:hover::after { width: 100%; }
+
+    /* ----------------------------
+       Ad Banner
+    ---------------------------- */
+    .ad-banner {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
     }
 
     /* ----------------------------
@@ -109,10 +110,7 @@
       margin-bottom: 1.5rem;
       text-shadow: 1px 1px 4px var(--shadow);
     }
-    p {
-      margin-bottom: 1rem;
-      color: var(--text-light);
-    }
+    p { margin-bottom: 1rem; color: var(--text-light); }
     .contact-list {
       list-style: none;
       margin: 1rem 0;
@@ -129,12 +127,10 @@
       color: var(--accent);
       transition: color var(--transition);
     }
-    .contact-list li:hover::before {
-      color: var(--link);
-    }
+    .contact-list li:hover::before { color: var(--link); }
 
     /* ----------------------------
-       Team Section (Optional)
+       Team Section
     ---------------------------- */
     .team {
       display: grid;
@@ -155,20 +151,12 @@
       box-shadow: 0 4px 12px var(--shadow);
     }
     .member img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
+      width: 80px; height: 80px;
+      border-radius: 50%; object-fit: cover;
       margin-bottom: 0.5rem;
     }
-    .member h4 {
-      margin-bottom: 0.25rem;
-      color: var(--text);
-    }
-    .member span {
-      font-size: 0.85rem;
-      color: var(--text-light);
-    }
+    .member h4 { margin-bottom: 0.25rem; color: var(--text); }
+    .member span { font-size: 0.85rem; color: var(--text-light); }
 
     /* ----------------------------
        Footer
@@ -180,9 +168,7 @@
       color: var(--text-light);
       border-top: 1px solid #444;
     }
-    .site-footer a:hover {
-      color: #fff;
-    }
+    .site-footer a:hover { color: #fff; }
 
     /* ----------------------------
        Responsive
@@ -198,10 +184,20 @@
     <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
     <nav class="site-nav">
       <a href="about.html">About Us</a>
-      <!-- Now correctly links to index.html -->
       <a href="index.html">Main Menu</a>
     </nav>
   </header>
+
+  <!-- AdSense Banner (728×90) -->
+  <div class="ad-banner">
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-6519051238927335"
+         data-ad-slot="YOUR_AD_SLOT_ID"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
 
   <main class="container">
     <h1>About Us</h1>
