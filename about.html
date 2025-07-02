@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Glitch Bros</title>
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    /* ----------------------------
+       Variables & Reset
+    ---------------------------- */
+    :root {
+      --bg: #1a1a1d;
+      --card-bg: #2e2e38;
+      --header-footer-bg: #333;
+      --text: #ccc;
+      --text-light: #aaa;
+      --accent: #f05454;
+      --link: #4da6ff;
+      --shadow: rgba(0, 0, 0, 0.5);
+      --transition: 0.3s ease;
+      --radius: 8px;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a {
+      color: var(--link);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ----------------------------
+       Header
+    ---------------------------- */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: var(--header-footer-bg);
+      box-shadow: 0 2px 4px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header img.logo {
+      max-height: 50px;
+      transition: transform var(--transition);
+    }
+    .site-header img.logo:hover {
+      transform: rotate(-10deg) scale(1.05);
+    }
+    .site-nav a {
+      margin-left: 1.25rem;
+      font-weight: 500;
+      position: relative;
+    }
+    .site-nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      bottom: -4px;
+      left: 0;
+      transition: width var(--transition);
+    }
+    .site-nav a:hover::after {
+      width: 100%;
+    }
+
+    /* ----------------------------
+       Main Content
+    ---------------------------- */
+    .container {
+      flex: 1;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 10px var(--shadow);
+      animation: fadeIn 0.8s ease both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 1.5rem;
+      text-shadow: 1px 1px 4px var(--shadow);
+    }
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
+    .contact-list {
+      list-style: none;
+      margin: 1rem 0;
+      padding: 0;
+    }
+    .contact-list li {
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+    }
+    .contact-list li::before {
+      content: "➤";
+      margin-right: 0.5rem;
+      color: var(--accent);
+      transition: color var(--transition);
+    }
+    .contact-list li:hover::before {
+      color: var(--link);
+    }
+
+    /* ----------------------------
+       Team Section (Optional)
+    ---------------------------- */
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .member {
+      background: var(--bg);
+      border-radius: var(--radius);
+      text-align: center;
+      padding: 1rem;
+      box-shadow: 0 2px 6px var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .member:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .member img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
+    }
+    .member h4 {
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+    .member span {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* ----------------------------
+       Footer
+    ---------------------------- */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--header-footer-bg);
+      color: var(--text-light);
+      border-top: 1px solid #444;
+    }
+    .site-footer a:hover {
+      color: #fff;
+    }
+
+    /* ----------------------------
+       Responsive
+    ---------------------------- */
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .site-header, .container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
+    <nav class="site-nav">
+      <a href="about.html">About Us</a>
+      <a href="main-menu.html">Main Menu</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>About Us</h1>
+    <p>Glitch Bros is more than just a game studio—it’s a passion project. We craft thrilling fan-made experiences that entertain and inspire.</p>
+    <p>Reach out via:</p>
+    <ul class="contact-list">
+      <li>WhatsApp: <a href="https://wa.me/201028725687" target="_blank">+20 102 872 5687</a> / <a href="https://wa.me/01028992800" target="_blank">+20 102 899 2800</a></li>
+      <li>Facebook: <a href="https://www.facebook.com/abdalla.taher.5494" target="_blank">Abdalla T.</a>, <a href="https://www.facebook.com/Abdallaetaher" target="_blank">Abdalla E.</a></li>
+      <li>FB Page: <a href="https://www.facebook.com/profile.php?id=61577749392402" target="_blank">Glitch Bros Official</a></li>
+      <li>Instagram: <a href="https://www.instagram.com/mr_nobody_ghost1" target="_blank">Abdalla.T</a>, <a href="https://www.instagram.com/abdullah_el_taher/" target="_blank">Abdalla.E</a></li>
+      <li>Discord: <a href="https://discord.gg/MFehJpMxUb" target="_blank">Join our Discord</a></li>
+    </ul>
+
+    <div class="team">
+      <div class="member">
+        <img src="assets/team/abdalla_t.jpg" alt="Abdalla T." />
+        <h4>Abdalla T.</h4>
+        <span>Unity Developer</span>
+        <span>/ Video Editor</span>
+      </div>
+      <div class="member">
+        <img src="assets/team/abdalla_e.jpg" alt="Abdalla E." />
+        <h4>Abdalla E.</h4>
+        <span>Unity Developer</span>
+        <span>/ Video Editor</span>
+      </div>
+    </div>
+
+    <p style="text-align:center; font-style:italic; color:var(--text-light); margin-top:2rem;">
+      "It's More Than A Job... It's A Passion."
+    </p>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Glitch Bros. All rights reserved.</p>
+  </footer>
+</body>
+</html>

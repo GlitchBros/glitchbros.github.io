@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play FkIt BB — Glitch Bros</title>
+  <link rel="icon" href="../favicon.ico" />
+
+  <!-- 1) Night‑mode Main Menu styles with sticky footer support -->
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1a1a1d;
+      color: #ccc;
+      margin: 0;
+    }
+
+    /* Header */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+    .site-header img.logo { max-height: 50px; }
+    .site-nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .site-nav a:hover { color: #f05454; }
+
+    /* Main Title */
+    .main-title { text-align: center; margin: 2rem 0; font-size: 2rem; color: #f05454; }
+
+    /* Unity/Game Section container */
+    .games-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      flex: 1;
+    }
+
+    /* Positioning context for full-screen button */
+    #unity-container { position: relative; }
+
+    /* Footer */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #333;
+      color: #ccc;
+      flex-shrink: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      #unity-canvas { width: 100% !important; height: auto !important; }
+    }
+  </style>
+
+  <!-- 2) Unity’s TemplateData styles (loader + fullscreen button) -->
+  <link rel="stylesheet" href="TemplateData/style.css">
+
+  <!-- 3) Override to ensure the button is on top and easy to see -->
+  <style>
+    #unity-container.unity-desktop #unity-fullscreen-button {
+      z-index: 9999 !important;            /* top layer */
+      filter: drop-shadow(0 0 6px rgba(0,0,0,0.7)); /* pop it off the canvas */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <img class="logo" src="../assets/logo.png" alt="Glitch Bros Logo" />
+    <nav class="site-nav">
+      <a href="../about.html">About Us</a>
+      <a href="../main-menu.html">Main Menu</a>
+    </nav>
+  </header>
+
+  <!-- Page Title -->
+  <h1 class="main-title">Play FkIt BB</h1>
+
+  <!-- Unity Game Container -->
+  <main class="games-container">
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width="960" height="540" tabindex="-1"></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"></div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">FkIt BB</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Unity Loader Script -->
+  <script>
+    var container = document.querySelector("#unity-container");
+    var canvas = document.querySelector("#unity-canvas");
+    var loadingBar = document.querySelector("#unity-loading-bar");
+    var progressBarFull = document.querySelector("#unity-progress-bar-full");
+    var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+    var warningBanner = document.querySelector("#unity-warning");
+
+    function unityShowBanner(msg, type) {
+      function update() { warningBanner.style.display = warningBanner.children.length ? 'block' : 'none'; }
+      var div = document.createElement('div');
+      div.innerHTML = msg;
+      warningBanner.appendChild(div);
+      if (type === 'error') div.style = 'background: red; padding: 10px;';
+      else {
+        if (type === 'warning') div.style = 'background: yellow; padding: 10px;';
+        setTimeout(() => { warningBanner.removeChild(div); update(); }, 5000);
+      }
+      update();
+    }
+
+    var buildUrl = "Build";
+    var loaderUrl = buildUrl + "/Hasagii!.loader.js";
+    var config = {
+      dataUrl: buildUrl + "/Hasagii!.data.unityweb",
+      frameworkUrl: buildUrl + "/Hasagii!.framework.js.unityweb",
+      codeUrl: buildUrl + "/Hasagii!.wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "FkIt BB",
+      productVersion: "0.1.0",
+      showBanner: unityShowBanner
+    };
+
+    if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      var meta = document.createElement('meta');
+      meta.name = 'viewport';
+      meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no';
+      document.head.appendChild(meta);
+      container.className = "unity-mobile";
+      canvas.className = "unity-mobile";
+    } else {
+      canvas.style.width = "960px";
+      canvas.style.height = "540px";
+    }
+
+    loadingBar.style.display = "block";
+    var script = document.createElement("script");
+    script.src = loaderUrl;
+    script.onload = () => {
+      createUnityInstance(canvas, config, progress => {
+        progressBarFull.style.width = 100 * progress + "%";
+      }).then(unityInstance => {
+        loadingBar.style.display = "none";
+        fullscreenButton.onclick = () => unityInstance.SetFullscreen(1);
+      }).catch(alert);
+    };
+    document.body.appendChild(script);
+  </script>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <p>&copy; 2025 Glitch Bros. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

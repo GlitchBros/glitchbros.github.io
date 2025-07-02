@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dodge Ball — Glitch Bros</title>
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #FCF8F3; color: #333; }
+
+    /* Header */
+    .site-header {
+      display: flex; align-items: center; justify-content: flex-end;
+      padding: 1rem 2rem; background: #FFEE93;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0;
+    }
+    .site-header img.logo { max-height: 50px; margin-right: auto; }
+    .site-nav a {
+      margin-left: 1rem; text-decoration: none; color: #333;
+      font-weight: 500; transition: color .2s;
+    }
+    .site-nav a:hover { color: #FF6F61; }
+
+    /* Game Container */
+    .game-container {
+      position: relative; padding-top: 56.25%; /* 16:9 aspect */
+      margin: 2rem auto; max-width: 800px;
+    }
+    .game-container iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
+      border-radius: .5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    .site-footer {
+      text-align: center; padding: 1.5rem;
+      background: #E4F9F5; color: #333; margin-top: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .site-header { flex-direction: column; }
+      .site-nav   { margin-top: .5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
+    <nav class="site-nav">
+      <a href="about.html">About Us</a>
+      <a href="main-menu.html">Main Menu</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="game-container">
+      <!-- Embed your WebGL build -->
+      <iframe src="dodge-master/index.html"></iframe>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Glitch Bros. All rights reserved.</p>
+  </footer>
+</body>
+</html>

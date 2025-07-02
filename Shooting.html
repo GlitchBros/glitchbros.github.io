@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shooting Simulator — Glitch Bros</title>
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1a1a1d;
+      color: #ccc;
+    }
+
+    /* Header */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: #333;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+    .site-header img.logo { max-height: 50px; }
+    .site-nav a {
+      margin-left: 1rem;
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .site-nav a:hover { color: #f05454; }
+
+    /* Title */
+    .main-title {
+      text-align: center;
+      margin: 2rem 0;
+      font-size: 2rem;
+      color: #f05454;
+    }
+
+    /* Coming Soon Section */
+    .coming-soon {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .coming-soon p {
+      margin: 0.5rem 0;
+    }
+
+    /* Spinner */
+    .loader {
+      border: 8px solid #444;
+      border-top: 8px solid #f05454;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1.2s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Footer */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #333;
+      color: #ccc;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
+    <nav class="site-nav">
+      <a href="about.html">About Us</a>
+      <a href="main-menu.html">Main Menu</a>
+    </nav>
+  </header>
+
+  <h1 class="main-title">Shooting Simulator</h1>
+
+  <main class="coming-soon">
+    <div>
+      <div class="loader"></div>
+      <p style="margin-top: 1.5rem;">Shooting Simulator is coming soon...</p>
+      <p style="font-size: 1rem; color: #888;">Expected release: 15/7/2025</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Glitch Bros. All rights reserved.</p>
+  </footer>
+</body>
+</html>
