@@ -9,9 +9,7 @@
   
   <!-- Favicon -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-  <!-- You can also add a PNG fallback if you like:
-       <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32" type="image/png" /> -->
-  
+
   <!-- Google AdSense Auto Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6519051238927335"
        crossorigin="anonymous"></script>
@@ -20,6 +18,16 @@
       google_ad_client: "ca-pub-6519051238927335",
       enable_page_level_ads: true
     });
+  </script>
+
+  <!-- Redirect any invite or recovery tokens into the CMS admin UI -->
+  <script>
+    (function() {
+      const hash = window.location.hash;
+      if (hash.includes('invite_token') || hash.includes('recovery_token')) {
+        window.location.replace('/admin/' + hash);
+      }
+    })();
   </script>
 
   <style>
