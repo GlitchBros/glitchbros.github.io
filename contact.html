@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy Account — Glitch Bros</title>
+  <link rel="icon" href="/favicon.ico" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #151519, #1f1f24);
+      color: #ccc;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #f05454;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      margin-bottom: 1rem;
+    }
+    .card {
+      background: #2e2e38;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .info {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #f05454;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #d94343;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Buy Account</h1>
+    <div class="info" id="accountInfo">Loading...</div>
+    <a class="btn" href="https://t.me/glitchbros" target="_blank">Contact Us to Buy</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const account = params.get("account");
+
+    document.getElementById("accountInfo").textContent = 
+      account ? `You're purchasing: ${decodeURIComponent(account)}` 
+              : "No account selected.";
+  </script>
+</body>
+</html>
