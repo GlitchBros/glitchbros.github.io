@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main           # or master, whichever is your default
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "accounts"
+    label: "Accounts for Sale"
+    folder: "content/accounts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title",       name: "title",   widget: "string" }
+      - { label: "Price (USD)", name: "price",   widget: "number" }
+      - { label: "Description", name: "desc",    widget: "text" }
+      - { label: "Image",       name: "image",   widget: "image" }
