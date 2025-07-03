@@ -203,11 +203,17 @@
           const raw = await fetch(file.download_url).then(r => r.json());
           const { title, price, desc, image } = raw;
 
+          const imgSrc = image
+            ? (image.startsWith('http') || image.startsWith('/'))
+              ? image
+              : '/assets/uploads/' + image
+            : '';
+
           const card = document.createElement('a');
           card.className = 'game-card';
           card.href = `contact.html?account=${encodeURIComponent(title)}`;
           card.innerHTML = `
-            ${image ? `<img class="game-thumb" src="/assets/uploads/${image}" alt="${title}">` : ''}
+            ${imgSrc ? `<img class="game-thumb" src="${imgSrc}" alt="${title}">` : ''}
             <div class="game-info">
               <h3>${title}</h3>
               <p>${desc || ''}</p>
