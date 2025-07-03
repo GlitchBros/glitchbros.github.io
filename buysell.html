@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accounts for Sale — Glitch Bros</title>
+  <title>Accounts for Sale — Glitch Bros</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
   <!-- Theme copied from index.html -->
@@ -164,11 +164,11 @@
 </head>
 <body>
   <header class="site-header">
-    <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
+    <img class="logo" src="assets/logo.png" alt="Glitch Bros Logo" />
     <nav class="site-nav">
       <a href="index.html">Main Menu</a>
-      <a href="about.html">About Us</a>
       <a href="buysell.html">Accounts</a>
+      <a href="about.html">About Us</a>
     </nav>
   </header>
 
@@ -179,36 +179,36 @@
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2025 Glitch Bros. All rights reserved.</p>
+    <p>&copy; 2025 Glitch Bros. All rights reserved.</p>
   </footer>
 
   <script>
     async function loadAccounts() {
       const grid = document.getElementById('accGrid');
       try {
-        // 1) List JSON files in the GitHub repo folder
+        // 1) List all .json account files in your GitHub repo
         const resp = await fetch('https://api.github.com/repos/GlitchBros/glitchbros.github.io/contents/content/accounts');
         const files = await resp.json();
         const jsonFiles = files.filter(f => f.name.endsWith('.json'));
 
-        grid.innerHTML = ''; // clear the loading text
+        grid.innerHTML = ''; // clear loading text
 
         for (const file of jsonFiles) {
-          // 2) Use filename (minus .json) as slug
+          // 2) Derive slug from filename (e.g. "my-account")
           const slug = file.name.replace(/\.json$/, '');
 
-          // 3) Fetch that account's JSON
+          // 3) Fetch the account’s JSON data
           const raw = await fetch(file.download_url).then(r => r.json());
           const { title, price, desc, image } = raw;
 
-          // 4) Build correct image URL
+          // 4) Compute image source safely
           const imgSrc = image
             ? (image.startsWith('http') || image.startsWith('/'))
               ? image
               : '/assets/uploads/' + image
             : '';
 
-          // 5) Create the card with slug in the link
+          // 5) Build and append the card, linking by slug
           const card = document.createElement('a');
           card.className = 'game-card';
           card.href = `contact.html?account=${encodeURIComponent(slug)}`;
@@ -219,7 +219,6 @@
               <p>${desc || ''}</p>
               <span class="play-btn">Buy ($${price})</span>
             </div>`;
-
           grid.appendChild(card);
         }
       } catch (err) {
