@@ -2,62 +2,169 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Buy Account — Glitch Bros</title>
   <link rel="icon" href="/favicon.ico" />
+
   <style>
+    :root {
+      --bg: #1a1a1d;
+      --primary: #f05454;
+      --secondary: #2e2e38;
+      --text: #ccc;
+      --shadow: rgba(0,0,0,0.5);
+    }
+    * { box-sizing: border-box; margin:0; padding:0; }
     body {
-      background: linear-gradient(135deg, #151519, #1f1f24);
-      color: #ccc;
+      background: var(--bg);
+      color: var(--text);
       font-family: 'Segoe UI', sans-serif;
-      padding: 2rem;
-      max-width: 600px;
-      margin: auto;
+      line-height: 1.5;
+    }
+    .site-header, .site-footer {
+      background: var(--secondary);
+      text-align: center;
+      padding: 1rem;
+    }
+    .site-header a, .site-footer a { color: var(--primary); text-decoration: none; }
+    .content {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
     h1 {
-      color: #f05454;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+      color: var(--primary);
+      text-align: center;
       margin-bottom: 1rem;
     }
     .card {
-      background: #2e2e38;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      background: var(--secondary);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+    .card img {
+      width: 100%;
+      display: block;
+      filter: brightness(0.9);
     }
     .info {
-      margin-bottom: 2rem;
-      font-size: 1.1rem;
+      padding: 1rem;
     }
-    .btn {
+    .info h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+    .info p {
+      margin: 0.5rem 0;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+    .gallery img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .btn-chat {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: #f05454;
+      background: var(--primary);
       color: #fff;
+      padding: 0.75rem 1.5rem;
       border-radius: 6px;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      margin-top: 1rem;
       transition: background 0.3s ease;
     }
-    .btn:hover {
+    .btn-chat:hover {
       background: #d94343;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Buy Account</h1>
-    <div class="info" id="accountInfo">Loading...</div>
-    <a class="btn" href="https://t.me/glitchbros" target="_blank">Contact Us to Buy</a>
+
+  <header class="site-header">
+    <a href="index.html">← Main Menu</a>
+  </header>
+
+  <div class="content">
+    <h1>Account Details</h1>
+    <div id="accountCard" class="card">
+      <p style="padding:2rem; text-align:center;">Loading account…</p>
+    </div>
+    <a class="btn-chat" href="javascript:void(0)" onclick="Tawk_API.toggle()">Chat with us</a>
   </div>
+
+  <footer class="site-footer">
+    &copy; 2025 Glitch Bros.
+  </footer>
+
+  <!-- Start of Tawk.to Script -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/6866052d54a3cf190ecb35a1/1iv788eun';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+  <!-- End of Tawk.to Script -->
 
   <script>
     const params = new URLSearchParams(location.search);
-    const account = params.get("account");
+    const slug = params.get('account');
+    const card = document.getElementById('accountCard');
 
-    document.getElementById("accountInfo").textContent = 
-      account ? `You're purchasing: ${decodeURIComponent(account)}` 
-              : "No account selected.";
+    async function showAccount() {
+      if (!slug) {
+        card.innerHTML = '<p style="padding:2rem; text-align:center;">No account selected.</p>';
+        return;
+      }
+
+      try {
+        // Fetch the JSON for this account
+        const url = `https://raw.githubusercontent.com/GlitchBros/glitchbros.github.io/main/content/accounts/${slug}.json`;
+        const data = await fetch(url).then(r => r.json());
+
+        // Build image list: previewImage first, then additional images
+        const imgs = [];
+        if (data.previewImage) imgs.push(data.previewImage);
+        if (Array.isArray(data.images)) {
+          data.images.forEach(o => {
+            if (o.image) imgs.push(o.image);
+          });
+        }
+
+        // Render the card
+        card.innerHTML = `
+          ${imgs.length ? `<img src="/assets/uploads/${imgs[0]}" alt="${data.title}">` : ''}
+          <div class="info">
+            <h2>${data.title}</h2>
+            <p><strong>Price:</strong> $${data.price}</p>
+            <p>${data.desc}</p>
+          </div>
+          ${imgs.length > 1 
+            ? `<div class="gallery">
+                ${imgs.slice(1).map(i => `<img src="/assets/uploads/${i}" alt="${data.title}">`).join('')}
+               </div>` 
+            : ''}`;
+
+      } catch (err) {
+        console.error(err);
+        card.innerHTML = '<p style="padding:2rem; text-align:center; color:red;">Failed to load account.</p>';
+      }
+    }
+
+    showAccount();
   </script>
 </body>
 </html>

@@ -11,11 +11,16 @@ collections:
     folder: "content/accounts"
     create: true
     slug: "{{slug}}"
-    format: "json"   # important: save as JSON
+    format: "json"
     extension: "json"
     identifier_field: "title"
     fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Price (USD)", name: "price", widget: "number" }
-      - { label: "Description", name: "desc", widget: "text" }
-      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Title",        name: "title",        widget: "string" }
+      - { label: "Price (USD)",  name: "price",        widget: "number" }
+      - { label: "Description",  name: "desc",         widget: "text" }
+      - { label: "Preview Image",name: "previewImage", widget: "image" }
+      - label: "Additional Images"
+        name: "images"
+        widget: "list"
+        fields:
+          - { label: "Image", name: "image", widget: "image" }
