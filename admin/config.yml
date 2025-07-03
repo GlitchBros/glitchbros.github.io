@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main           # or master, whichever is your default
+  branch: main
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
@@ -11,8 +11,12 @@ collections:
     folder: "content/accounts"
     create: true
     slug: "{{slug}}"
+    identifier_field: title
+    format: json
+    extension: "json"
+    summary: "{{title}} (${{price}})"
     fields:
-      - { label: "Title",       name: "title",   widget: "string" }
-      - { label: "Price (USD)", name: "price",   widget: "number" }
-      - { label: "Description", name: "desc",    widget: "text" }
-      - { label: "Image",       name: "image",   widget: "image" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Price", name: "price", widget: "number" }
+      - { label: "Description", name: "desc", widget: "text" }
+      - { label: "Image", name: "image", widget: "image" }
