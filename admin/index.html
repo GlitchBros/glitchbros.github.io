@@ -2,12 +2,13 @@
 <html>
   <head>
     <meta charset="utf-8"/>
-    <title>Glitch Bros CMS</title>
-    <!-- Load Netlify CMS -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+    <title>Glitch Bros Admin</title>
   </head>
   <body>
-    <!-- This is where Netlify CMS will render -->
+    <!-- 1) The container Netlify CMS will mount into -->
     <div id="nc-root"></div>
+
+    <!-- 2) Load Netlify CMS AFTER the container exists -->
+    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
   </body>
 </html>
