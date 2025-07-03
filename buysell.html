@@ -3,36 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-adsense-account" content="ca-pub-6519051238927335" />
-  <title>Main Menu — Glitch Bros</title>
+  <title>Accounts for Sale — Glitch Bros</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <!-- Markdown‑to‑HTML converter -->
+  <script src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
 
-  <!-- Google AdSense Auto Ads -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6519051238927335"
-    crossorigin="anonymous"></script>
-  <script>
-    (adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: "ca-pub-6519051238927335",
-      enable_page_level_ads: true
-    });
-  </script>
-
-  <!-- Redirect special token hashes into the CMS -->
-  <script>
-    (function () {
-      const hash = window.location.hash;
-      if (
-        hash.includes('invite_token') ||
-        hash.includes('recovery_token') ||
-        hash.includes('confirmation_token')
-      ) {
-        window.location.replace('/admin/' + hash);
-      }
-    })();
-  </script>
-
+  <!-- Match index.html style -->
   <style>
     :root {
       --bg-color: #1a1a1d;
@@ -233,29 +209,50 @@
     </nav>
   </header>
 
-  <h1 class="main-title">Main Menu</h1>
+  <h1 class="main-title">Accounts for Sale</h1>
 
-  <main class="games-container">
-    <a href="dodge-master/index.html" class="game-card">
-      <img src="assets/dodge-master-thumb.jpg" alt="Dodge Master Thumbnail" class="game-thumb" />
-      <div class="game-info">
-        <h3>Dodge Master</h3>
-        <p>Dodge obstacles and survive as long as possible.</p>
-        <span class="play-btn">Play Now</span>
-      </div>
-    </a>
-    <a href="Shooting.html" class="game-card">
-      <img src="assets/shooting-simulator-thumb.jpg" alt="Shooting Simulator Thumbnail" class="game-thumb" />
-      <div class="game-info">
-        <h3>Shooting Simulator</h3>
-        <p>Test your aim and shoot targets with precision and speed.</p>
-        <span class="play-btn">Play Now</span>
-      </div>
-    </a>
+  <main id="accGrid" class="games-container">
+    <p style="text-align:center;width:100%;">Loading accounts…</p>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; 2025 Glitch Bros. All rights reserved. <a href="privacy.html">Privacy Policy</a></p>
+    <p>&copy; 2025 Glitch Bros. All rights reserved.</p>
   </footer>
+
+  <script>
+    /* -------- load every Markdown file in /content/accounts/ -------- */
+    async function loadAccounts() {
+      const grid   = document.getElementById('accGrid');
+      const resp   = await fetch('/content/accounts/');
+      const html   = await resp.text();
+      const links  = [...html.matchAll(/href="([^"]+\.md)"/g)].map(m => m[1]);
+      const md2html = new showdown.Converter();
+      grid.innerHTML = '';                 // clear “loading…”
+
+      for (const path of links) {
+        const raw = await fetch(path).then(r => r.text());
+
+        /* simple front‑matter parsing */
+        const [, fm, body] = raw.split('---');
+        const title = fm.match(/title:\s*(.+)/i)?.[1] || 'Untitled';
+        const price = fm.match(/price:\s*(.+)/i)?.[1] || '0';
+        const img   = fm.match(/image:\s*(.+)/i)?.[1]?.trim();
+
+        const card = document.createElement('a');
+        card.className = 'game-card';
+        card.href      = `contact.html?account=${encodeURIComponent(title)}`;
+
+        card.innerHTML = `
+          ${img ? `<img class="game-thumb" src="/assets/uploads/${img}" alt="${title}"/>` : ''}
+          <div class="game-info">
+            <h3>${title}</h3>
+            <p>${md2html.makeHtml(body.trim())}</p>
+            <span class="play-btn">Buy ($${price})</span>
+          </div>`;
+        grid.append(card);
+      }
+    }
+    loadAccounts();
+  </script>
 </body>
 </html>
