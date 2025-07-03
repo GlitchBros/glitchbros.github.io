@@ -48,6 +48,7 @@
       width: 100%;
       display: block;
       filter: brightness(0.9);
+      cursor: pointer;
     }
     .info {
       padding: 1rem;
@@ -70,6 +71,11 @@
       height: 100px;
       object-fit: cover;
       border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
     }
     .btn-chat {
       display: inline-block;
@@ -84,6 +90,33 @@
     }
     .btn-chat:hover {
       background: #d94343;
+    }
+
+    /* Lightbox Overlay */
+    #lightboxOverlay {
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #lightboxOverlay img {
+      max-width: 90%;
+      max-height: 90%;
+      box-shadow: 0 0 20px #000;
+    }
+    #lightboxOverlay .close-btn {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      border-radius: 50%;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -105,7 +138,13 @@
     &copy; 2025 Glitch Bros.
   </footer>
 
-  <!-- Start of Tawk.to Script -->
+  <!-- Lightbox Element -->
+  <div id="lightboxOverlay">
+    <button class="close-btn">&times;</button>
+    <img src="" alt="Preview">
+  </div>
+
+  <!-- Tawk.to Script -->
   <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
@@ -117,14 +156,15 @@
       s0.parentNode.insertBefore(s1,s0);
     })();
   </script>
-  <!-- End of Tawk.to Script -->
 
   <script>
     const params = new URLSearchParams(location.search);
     const slug = params.get('account');
     const card = document.getElementById('accountCard');
+    const overlay = document.getElementById('lightboxOverlay');
+    const overlayImg = overlay.querySelector('img');
+    const closeBtn = overlay.querySelector('.close-btn');
 
-    // Normalize image paths: use as-is if they start with "/" or "http", otherwise prefix uploads folder
     function normalize(src) {
       if (!src) return '';
       return src.startsWith('http') || src.startsWith('/')
@@ -137,40 +177,58 @@
         card.innerHTML = '<p style="padding:2rem; text-align:center;">No account selected.</p>';
         return;
       }
-
       try {
         const url = `https://raw.githubusercontent.com/GlitchBros/glitchbros.github.io/main/content/accounts/${slug}.json`;
         const data = await fetch(url).then(r => r.json());
 
-        // Build image array
         const imgs = [];
         if (data.previewImage) imgs.push(data.previewImage);
-        if (Array.isArray(data.images)) {
-          data.images.forEach(o => { if (o.image) imgs.push(o.image); });
-        }
+        if (Array.isArray(data.images)) data.images.forEach(o => o.image && imgs.push(o.image));
 
-        // Normalize all image URLs
         const previewSrc = normalize(imgs[0]);
         const gallerySrcs = imgs.slice(1).map(normalize);
 
-        // Render
-        card.innerHTML = `
-          ${previewSrc ? `<img src="${previewSrc}" alt="${data.title}">` : ''}
+        // Build card HTML
+        let html = '';
+        if (previewSrc) {
+          html += `<img class="game-thumb" src="${previewSrc}" alt="${data.title}">`;
+        }
+        html += `
           <div class="info">
             <h2>${data.title}</h2>
             <p><strong>Price:</strong> $${data.price}</p>
             <p>${data.desc}</p>
-          </div>
-          ${gallerySrcs.length
-            ? `<div class="gallery">
-                ${gallerySrcs.map(s => `<img src="${s}" alt="${data.title}">`).join('')}
-              </div>`
-            : ''}`;
+          </div>`;
+
+        if (gallerySrcs.length) {
+          html += '<div class="gallery">';
+          for (const src of gallerySrcs) {
+            html += `<img src="${src}" alt="${data.title}">`;
+          }
+          html += '</div>';
+        }
+
+        card.innerHTML = html;
+
+        // Attach click handlers for lightbox
+        card.querySelectorAll('img').forEach(img => {
+          img.addEventListener('click', () => {
+            overlayImg.src = img.src;
+            overlay.style.display = 'flex';
+          });
+        });
+
       } catch (err) {
         console.error(err);
         card.innerHTML = '<p style="padding:2rem; text-align:center; color:red;">Failed to load account.</p>';
       }
     }
+
+    // Close lightbox
+    closeBtn.addEventListener('click', () => overlay.style.display = 'none');
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) overlay.style.display = 'none';
+    });
 
     showAccount();
   </script>
