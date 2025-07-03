@@ -124,6 +124,14 @@
     const slug = params.get('account');
     const card = document.getElementById('accountCard');
 
+    // Normalize image paths: use as-is if they start with "/" or "http", otherwise prefix uploads folder
+    function normalize(src) {
+      if (!src) return '';
+      return src.startsWith('http') || src.startsWith('/')
+        ? src
+        : '/assets/uploads/' + src;
+    }
+
     async function showAccount() {
       if (!slug) {
         card.innerHTML = '<p style="padding:2rem; text-align:center;">No account selected.</p>';
@@ -131,33 +139,33 @@
       }
 
       try {
-        // Fetch the JSON for this account
         const url = `https://raw.githubusercontent.com/GlitchBros/glitchbros.github.io/main/content/accounts/${slug}.json`;
         const data = await fetch(url).then(r => r.json());
 
-        // Build image list: previewImage first, then additional images
+        // Build image array
         const imgs = [];
         if (data.previewImage) imgs.push(data.previewImage);
         if (Array.isArray(data.images)) {
-          data.images.forEach(o => {
-            if (o.image) imgs.push(o.image);
-          });
+          data.images.forEach(o => { if (o.image) imgs.push(o.image); });
         }
 
-        // Render the card
+        // Normalize all image URLs
+        const previewSrc = normalize(imgs[0]);
+        const gallerySrcs = imgs.slice(1).map(normalize);
+
+        // Render
         card.innerHTML = `
-          ${imgs.length ? `<img src="/assets/uploads/${imgs[0]}" alt="${data.title}">` : ''}
+          ${previewSrc ? `<img src="${previewSrc}" alt="${data.title}">` : ''}
           <div class="info">
             <h2>${data.title}</h2>
             <p><strong>Price:</strong> $${data.price}</p>
             <p>${data.desc}</p>
           </div>
-          ${imgs.length > 1 
+          ${gallerySrcs.length
             ? `<div class="gallery">
-                ${imgs.slice(1).map(i => `<img src="/assets/uploads/${i}" alt="${data.title}">`).join('')}
-               </div>` 
+                ${gallerySrcs.map(s => `<img src="${s}" alt="${data.title}">`).join('')}
+              </div>`
             : ''}`;
-
       } catch (err) {
         console.error(err);
         card.innerHTML = '<p style="padding:2rem; text-align:center; color:red;">Failed to load account.</p>';
