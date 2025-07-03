@@ -11,12 +11,11 @@ collections:
     folder: "content/accounts"
     create: true
     slug: "{{slug}}"
-    identifier_field: title
-    format: json
+    format: "json"   # important: save as JSON
     extension: "json"
-    summary: "{{title}} (${{price}})"
+    identifier_field: "title"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Price", name: "price", widget: "number" }
+      - { label: "Price (USD)", name: "price", widget: "number" }
       - { label: "Description", name: "desc", widget: "text" }
       - { label: "Image", name: "image", widget: "image" }
